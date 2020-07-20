@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css"/>
+    </head>
+    <body>
+        <div class="botui-app-container" id="hello-world">
+            <bot-ui></bot-ui>
+          </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+         var socket = io.connect();
+         
+        var botui = new BotUI('hello-world');
+        botui.message.add({
+        content: 'Hello World from bot!'
+      })
+    
+      function chat(){
+        botui.action.text({
+          human:true,
+          action:{
+              placeholder:'What you wanna say !!!'
+          }
+      }).then(res=>{
+        console.log(res.value)
+          socket.emit('message',res.value)
+           
+      })
+      }
+      socket.on('message',message=>{
+              console.log("message",message)
+              chat()
+             botui.message.add({
+                  content:message
+              })
+          })
+      chat()
+     
+    </script>
+</html>
