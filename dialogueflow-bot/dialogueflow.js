@@ -1,7 +1,5 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const uuid = require('uuid');
-const { response } = require('express');
-
 async function dialogflowMain(projectId,keyFilename,inpMessage,client) {
     // A unique identifier for the given session
     const sessionId = uuid.v4();
@@ -38,6 +36,8 @@ async function dialogflowMain(projectId,keyFilename,inpMessage,client) {
     }
   }
 
-function createContext(){}
+function createContext(){
+
+}
 
  module.exports=dialogflowMain
