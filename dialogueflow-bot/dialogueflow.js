@@ -1,22 +1,15 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const uuid = require('uuid');
 async function dialogflowMain(projectId,keyFilename,inpMessage,client) {
-    // A unique identifier for the given session
-    const sessionId = uuid.v4();
-    console.log("inp",inpMessage)
-  
-    // Create a new session
+   
     const sessionClient = new dialogflow.SessionsClient({keyFilename});
-    const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
+    const sessionPath = sessionClient.projectAgentSessionPath(projectId, 'sessionId');
   
-    // The text query request.
     const request = {
       session: sessionPath,
       queryInput: {
         text: {
-          // The query to send to the dialogflow agent
           text: inpMessage,
-          // The language used by the client (en-US)
           languageCode: 'en-US',
         },
       },
